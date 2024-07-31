@@ -9,10 +9,10 @@ Specifically, the challenge is focused on the human spine where we will look at 
 
 ## Clinical background
 
-The [spine](https://visualsonline.cancer.gov/details.cfm?imageid=12201) consists of a set of individual vertebra. Since the vertebra consist of bony material they are clearly visible on CT scans due to their high x-ray attenuation. With age vertebra become frail and can fracture and compress. This can be seen on x-rays or CT but the diagnosis is not trivial. This challenge aims at exploring methods to detect potential fractured or compressed vertebra by considering them outliers when comparing to a normal population. We are focusing on a single vertebra and not a full spine analysis.
+The [spine](https://visualsonline.cancer.gov/details.cfm?imageid=12201) consists of a set of individual vertebra. Since the vertebra consist of bony material they are clearly visible on CT scans due to their high x-ray attenuation. With age, vertebra become frail and can fracture and compress. This can be seen on x-rays or CT but the diagnosis is not trivial. This challenge aims at exploring methods to detect potential fractured or compressed vertebra by considering them outliers when comparing to a normal population. We are focusing on a single vertebra and not a full spine analysis.
 
 
-|                 [spine](https://visualsonline.cancer.gov/details.cfm?imageid=12201)                 |                 Lumber vertebra                 |                 CT scan with segmentation masks                 | Volume rendering |
+|                 [spine](https://visualsonline.cancer.gov/details.cfm?imageid=12201)                 |                 Lumber vertebra                 |                 CT scan with segmentation masks                 | CT Volume rendering |
 |:----------------------------------------:|:---------------------------------------------:|:-------------------------------------------:|:-------------------------------------------:|
 | <img src="figs/nci-vol-12201-72.jpg" width=200/> | <img src="figs/L1_top.jpg" width=200/> | <img src="figs/3DSlicerView.jpg" width=200/> | <img src="figs/3DSlicerView_3.jpg" width=200/> | 
 
@@ -86,7 +86,26 @@ The **goal** is to assign a label to each sample in the test indicating if they 
 
 ## Supplied Python scripts
 
+All the supplied scripts take two arguments, the config file and the dataset to use. For example:
+```
+train_pdm_method.py -c rasmus_pc_config.json -d rasmus_training_split.txt
+```
+
+Will use the configuration settings in `rasmus_pc_config.json` and train using a custom `rasmus_training_split.txt` set. The set is just a text file where every row is a sample name (`sample_0017` for example)
+
+The following scripts, should be seen as simple templates that you can use as a basis for your own inpainting framework:
+
+- `train_pdm_method.py`: Will compute a point distribution model (PDM)
+- `test_pdm_method.py`: Will classify samples using a pre-trained PDM
+- `evaluate_outlier_detection.py`: Will compute metrics (TBD)
+- `submit_results.py`: Combine the information in your configuration file with your detection results and submit them to the Challenge server.
+
+
 ## Dependencies
+
+- VTK 9.3.0 
+- SimpleITK
+
 
 ## Tools
 
@@ -95,9 +114,32 @@ We highly recommend to use 3D slicer to visualize the data:
 
 It can be used for both the NIFTI files (.nii.gz) and the mesh/surface files (.vtk).
 
-## Gettings started
+[Sumatra (TBD)](people.compute.dtu.dk/rapa) is a surface viewer that can load several surfaces fast.
 
-## Configuring your submission
+## Getting started
+
+There are several example scripts that can get you started. Here is an example, where you build a [point distribution model (PDM)](https://en.wikipedia.org/wiki/Point_distribution_model) based on the surface meshes. The distribution of PCA components is then used to decide the outliers.
+
+- Download the data [TBD](https://people.compute.dtu.dk/rapa/) and unpack it a suitable place.
+- Clone this repository or download it as a zip and unpack.
+- Create a copy of `outlier-challenge-config.json` or edit it directly.
+- Find a fantastic team name (only using letters and numbers) and put it into the config file.
+- Change the data folders in the config file to match your local setup.
+- Try to run `train_pdm_method.py` with the **training** set.
+- Try to run `test_pdm_method.py` with the **test** set.
+- Try to run `submit_results.py` with the **test** set.
+
+We encourage you to split the **training** set into smaller sets for your own purpose (training, validation etc).
+
+**DO NOT** change the sample ids in the provided test and final_test sets. They should be fixed by all teams.
+
+## Describing your method in the config file
+
+The JSON config file has a field called `method`. Here you should supply a simple description of your method with no special letters. For example `PDM with distance threshold`, `Segmentation volume with flexible threshold`, `Distance field shape analysis with Mahalanobis distance`. This is used on the scoreboard.
+
+## Submitting results
+
+The submission script `submit_results.py` takes as input your JSON configuration file. It will use that to locate your outlier detection result JSON file and couple that with the information provided in your config file (team name and method description). Finally, it will send a merged JSON file to the challenge server.
 
 ## Outlier detection evaluations
 
