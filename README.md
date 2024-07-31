@@ -10,12 +10,11 @@ Specifically, the challenge is focused on the human spine where we will look at 
 ## Clinical background
 
 The [spine](https://visualsonline.cancer.gov/details.cfm?imageid=12201) consists of a set of individual vertebra:
-<img src="figs/nci-vol-12201-72.jpg" width=200/> 
-<img src="figs/L1_top.jpg" width=200/> 
 
-Three orthogonal slices of a CT scan with overlaid segmentation masks:
+|                 [spine](https://visualsonline.cancer.gov/details.cfm?imageid=12201)                 |                 Lumber vertebra                 |                 CT scan with segmentation masks                 |
+|:----------------------------------------:|:---------------------------------------------:|:-------------------------------------------:|
+| <img src="figs/nci-vol-12201-72.jpg" width=200/> | <img src="figs/L1_top.jpg" width=200/> | <img src="figs/3DSlicerView.jpg" width=200/> |
 
-<img src="figs/3DSlicerView.jpg" width=200/> 
 
 Volume rendering of a CT scan of the spine: 
 <img src="figs/3DSlicerView_3.jpg" width=200/> 
@@ -71,7 +70,7 @@ The total set consists of 1000 samples. They are split into:
 - **Test samples** : Samples that are used to compute the running scores on the score board. (`test_samples.txt`)
 - **Final test samples** : Samples that will be used to compute the final score at the end of the challenge. (`final_test_samples.txt`)
 
-All samples are named `samples_XXXX` where XXXX is a decimal number.
+All samples are named `sample_XXXX` where XXXX is a decimal number.
 
 For the training set, there are also artificially generated outliers. For each sample there are the following outliers:
 
@@ -83,7 +82,10 @@ For each sample, there is the **crop**, the **label crop**, the **distance field
 
 So for **sample_0017** the surface of the **sphere_outlier_water** is called **sample_0017_surface_sphere_outlier_water.vtk**.
 
- 
+### The test sets
+All the samples in the test sets are simply called `sample_XXXX` even if they are outliers. 
+
+The **goal** is to assign a label to each sample in the test indicating if they are *normal (0)* or *outliers (1)*.
 
 ## Supplied Python scripts
 
