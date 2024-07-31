@@ -5,9 +5,11 @@ This challenge is made in conjunction with the [Ph. D. Summer school on biomedic
 
 The goal of this challenge is to develop and evaluate algorithms for outlier detection. In this challenge, outlier detection (sometimes called novelty detection) is to detect samples that are not considered *normal*.
 
-Specifically, the Challenge is focused on the human spine where we will look at the L1 vertebra as seen on a computed tomography scan. A set of normal vertebra are given and a set with artificial artefacts (outliers) is also given. Finally, a test set with both normals and outliers are provided and the goal is to determine which samples in the test set that are outliers.
+Specifically, the challenge is focused on the human spine where we will look at the L1 vertebra as seen on a computed tomography scan. A set of normal vertebra are given and a set with artificial artefacts (outliers) is also given. Finally, a test set with both normals and outliers are provided and the goal is to determine which samples in the test set that are outliers.
 
 ## Clinical background
+
+<img src="figs/nci-vol-12201-72.jpg" width=200/> 
 
 ## Data
 
@@ -47,4 +49,4 @@ Single slice vs full volume
 ## Links and material
 
 - [Scikit Learn on outlier and novelty detection](https://scikit-learn.org/stable/modules/outlier_detection.html)
-- 
+
