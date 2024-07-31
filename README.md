@@ -29,7 +29,17 @@ For all samples there are different *representations* of the data. It is importa
 
 A cropped CT scan with the original Hounsfield units and a segmentation mask, where the value of each voxel indicate if it is part of the vertebra or background (=0).
 
-|        Raw data and segmentation mask    |
+|        Raw data     |
+|:----------------------------------------:|
+|<img src="figs/3DSlicerView_2.jpg" width=600/>|
+
+
+|        Raw data and segmentation mask     |
+|:----------------------------------------:|
+|<img src="figs/3DSlicerView.jpg" width=600/>|
+
+
+|        Raw data and 3D rendering    |
 |:----------------------------------------:|
 |<img src="figs/3Dslicer_dist_segm.jpg" width=600/>|
 
