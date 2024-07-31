@@ -28,7 +28,10 @@ For all samples there are different *representations* of the data. It is importa
 ### Raw data and segmentation masks
 
 A cropped CT scan with the original Hounsfield units and a segmentation mask, where the value of each voxel indicate if it is part of the vertebra or background (=0).
-<img src="figs/3Dslicer_dist_segm.jpg" width=200/> 
+
+|        Raw data and segmentation mask    |
+|:----------------------------------------:|
+|<img src="figs/3Dslicer_dist_segm.jpg" width=600/>|
 
 ### Distance fields
 
@@ -36,7 +39,7 @@ A distance field that is a 3D voxel volume, where the value in each voxel is the
 
 |                 Distance field                 |
 |:----------------------------------------:|
-|<img src="figs/3Dslicer_dist_field.jpg" width=400/>|
+|<img src="figs/3Dslicer_dist_field.jpg" width=600/>|
 
 
 ### Meshes
@@ -50,6 +53,7 @@ A mesh representing the outer surface of the vertebra:
 
 The meshes are pre-registered and there is *point-correspondence* over the entire data set. That means that all meshes have the same number of vertices and that a vertex with a given id can be assumed to be place on approximately the same anatomical location on all vertebra.
 
+## Naming conventions
 
 
 
