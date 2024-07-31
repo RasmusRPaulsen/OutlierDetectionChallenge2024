@@ -23,6 +23,14 @@ Volume rendering of a CT scan of the spine:
 
 ## Data
 
+A distance field that is a 3D voxel volume, where the value in each voxel is the signed distance to the surface of the vertebra:
+<img src="figs/3Dslicer_dist_field.jpg" width=200/> 
+
+A cropped CT scan with the original Hounsfield units and a segmentation mask, where the value of each voxel indicate if it is part of the vertebra or background (=0).
+<img src="figs/3Dslicer_dist_segm.jpg" width=200/> 
+
+
+
 ### Raw data
 
 ### Segmentation
