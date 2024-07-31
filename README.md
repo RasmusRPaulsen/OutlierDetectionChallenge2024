@@ -9,15 +9,12 @@ Specifically, the challenge is focused on the human spine where we will look at 
 
 ## Clinical background
 
-The [spine](https://visualsonline.cancer.gov/details.cfm?imageid=12201) consists of a set of individual vertebra:
-
-|                 [spine](https://visualsonline.cancer.gov/details.cfm?imageid=12201)                 |                 Lumber vertebra                 |                 CT scan with segmentation masks                 |
-|:----------------------------------------:|:---------------------------------------------:|:-------------------------------------------:|
-| <img src="figs/nci-vol-12201-72.jpg" width=200/> | <img src="figs/L1_top.jpg" width=200/> | <img src="figs/3DSlicerView.jpg" width=200/> |
+The [spine](https://visualsonline.cancer.gov/details.cfm?imageid=12201) consists of a set of individual vertebra. Since the vertebra consist of bony material they are clearly visible on CT scans due to their high x-ray attenuation. With age vertebra become frail and can fracture and compress. This can be seen on x-rays or CT but the diagnosis is not trivial. This challenge aims at exploring methods to detect potential fractured or compressed vertebra by considering them outliers when comparing to a normal population. We are focusing on a single vertebra and not a full spine analysis.
 
 
-Volume rendering of a CT scan of the spine: 
-<img src="figs/3DSlicerView_3.jpg" width=200/> 
+|                 [spine](https://visualsonline.cancer.gov/details.cfm?imageid=12201)                 |                 Lumber vertebra                 |                 CT scan with segmentation masks                 | Volume rendering |
+|:----------------------------------------:|:---------------------------------------------:|:-------------------------------------------:|:-------------------------------------------:|
+| <img src="figs/nci-vol-12201-72.jpg" width=200/> | <img src="figs/L1_top.jpg" width=200/> | <img src="figs/3DSlicerView.jpg" width=200/> | <img src="figs/3DSlicerView_3.jpg" width=200/> | 
 
 
 ## Data
