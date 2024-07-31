@@ -29,6 +29,12 @@ A distance field that is a 3D voxel volume, where the value in each voxel is the
 A cropped CT scan with the original Hounsfield units and a segmentation mask, where the value of each voxel indicate if it is part of the vertebra or background (=0).
 <img src="figs/3Dslicer_dist_segm.jpg" width=200/> 
 
+A mesh representing the outer surface of the vertebra:
+
+
+|                 Mesh                 |                 Mesh triangles                 |                 Mesh vertices                 |
+|:----------------------------------------:|:---------------------------------------------:|:-------------------------------------------:|
+| <img src="figs/vertebra_mesh.jpg" width=200/> | <img src="figs/vertebra_mesh_2.png" width=200/> | <img src="figs/vertebra_mesh_3.png" width=200/> |
 
 
 ### Raw data
