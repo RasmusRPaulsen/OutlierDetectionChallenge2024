@@ -97,6 +97,8 @@ The following scripts, should be seen as simple templates that you can use as a 
 
 - `train_pdm_method.py`: Will compute a point distribution model (PDM)
 - `test_pdm_method.py`: Will classify samples using a pre-trained PDM
+- `train_segmentation_method.py`: Will train a very simple detection model based on segmentation volumes.
+- `test_segmentation_method.py`: Will classify samples using a pre-trained segmentation based model.
 - `evaluate_outlier_detection.py`: Will compute metrics (TBD)
 - `submit_results.py`: Combine the information in your configuration file with your detection results and submit them to the Challenge server.
 
@@ -153,8 +155,6 @@ The submission script `submit_results.py` takes as input your JSON configuration
 
 ### VAE based outlier detection
 Single slice vs full volume
-
-
 
 
 ## Links and material
