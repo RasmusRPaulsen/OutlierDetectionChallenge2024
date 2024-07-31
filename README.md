@@ -34,7 +34,7 @@ A mesh representing the outer surface of the vertebra:
 
 |                 Mesh                 |                 Mesh triangles                 |                 Mesh vertices                 |
 |:----------------------------------------:|:---------------------------------------------:|:-------------------------------------------:|
-| <img src="figs/vertebra_mesh.jpg" width=200/> | <img src="figs/vertebra_mesh_2.png" width=200/> | <img src="figs/vertebra_mesh_3.png" width=200/> |
+| <img src="figs/vertebra_mesh.jpg" width=200/> | <img src="figs/vertebra_mesh_2.jpg" width=200/> | <img src="figs/vertebra_mesh_3.jpg" width=200/> |
 
 
 ### Raw data
