@@ -59,6 +59,8 @@ A mesh representing the outer surface of the vertebra:
 
 The meshes are pre-registered and there is *point-correspondence* over the entire data set. That means that all meshes have the same number of vertices and that a vertex with a given id can be assumed to be place on approximately the same anatomical location on all vertebra.
 
+The data has been sourced from different places. Most are also part of the [CTSpine1K](https://github.com/MIRACLE-Center/CTSpine1K) data set.
+
 ## Data splits and naming conventions
 
 The total set consists of 1000 samples. They are split into:
