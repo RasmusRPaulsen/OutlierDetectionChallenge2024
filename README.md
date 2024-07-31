@@ -23,11 +23,23 @@ Volume rendering of a CT scan of the spine:
 
 ## Data
 
-A distance field that is a 3D voxel volume, where the value in each voxel is the signed distance to the surface of the vertebra:
-<img src="figs/3Dslicer_dist_field.jpg" width=200/> 
+For all samples there are different *representations* of the data. It is important to choose the representation that is best suited for the task at hand.
+
+### Raw data and segmentation masks
 
 A cropped CT scan with the original Hounsfield units and a segmentation mask, where the value of each voxel indicate if it is part of the vertebra or background (=0).
 <img src="figs/3Dslicer_dist_segm.jpg" width=200/> 
+
+### Distance fields
+
+A distance field that is a 3D voxel volume, where the value in each voxel is the signed distance to the surface of the vertebra:
+
+|                 Distance field                 |
+|:----------------------------------------:|
+|<img src="figs/3Dslicer_dist_field.jpg" width=400/>|
+
+
+### Meshes
 
 A mesh representing the outer surface of the vertebra:
 
@@ -36,14 +48,12 @@ A mesh representing the outer surface of the vertebra:
 |:----------------------------------------:|:---------------------------------------------:|:-------------------------------------------:|
 | <img src="figs/vertebra_mesh.jpg" width=200/> | <img src="figs/vertebra_mesh_2.jpg" width=200/> | <img src="figs/vertebra_mesh_3.jpg" width=200/> |
 
+The meshes are pre-registered and there is *point-correspondence* over the entire data set. That means that all meshes have the same number of vertices and that a vertex with a given id can be assumed to be place on approximately the same anatomical location on all vertebra.
 
-### Raw data
 
-### Segmentation
 
-### Distance fields
 
-### Meshes
+
 
 
 ## Supplied Python scripts
