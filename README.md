@@ -63,16 +63,38 @@ A mesh representing the outer surface of the vertebra:
 
 The meshes are pre-registered and there is *point-correspondence* over the entire data set. That means that all meshes have the same number of vertices and that a vertex with a given id can be assumed to be place on approximately the same anatomical location on all vertebra.
 
-## Naming conventions
+## Data splits and naming conventions
 
+The total set consists of 1000 samples. They are split into:
 
+- **Training samples** : Samples that can be used for training and validation.  (`training_samples.txt`)
+- **Test samples** : Samples that are used to compute the running scores on the score board. (`test_samples.txt`)
+- **Final test samples** : Samples that will be used to compute the final score at the end of the challenge. (`final_test_samples.txt`)
 
+All samples are named `samples_XXXX` where XXXX is a decimal number.
 
+For the training set, there are also artificially generated outliers. For each sample there are the following outliers:
 
+- **sphere_outlier_mean_std_inpaint** : One or more spheres has been inpainted on the vertebra with Hounsfield units similar to the region.
+- **sphere_outlier_water** : One or more spheres has been inpainted on the vertebra with Hounsfield units similar to water.
+- **sphere_warp_outlier** : A non-linear deformation has been applied to the region around the vertebra. 
+
+For each sample, there is the **crop**, the **label crop**, the **distance field crop**, and the **mesh** (called a surface). This is also the case for the artificial outliers.
+
+So for **sample_0017** the surface of the **sphere_outlier_water** is called **sample_0017_surface_sphere_outlier_water.vtk**.
+
+ 
 
 ## Supplied Python scripts
 
 ## Dependencies
+
+## Tools
+
+We highly recommend to use 3D slicer to visualize the data:
+[3D Slicer](https://www.slicer.org/)
+
+It can be used for both the NIFTI files (.nii.gz) and the mesh/surface files (.vtk).
 
 ## Gettings started
 
