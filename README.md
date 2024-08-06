@@ -22,7 +22,7 @@ The [spine](https://visualsonline.cancer.gov/details.cfm?imageid=12201) consists
 
 ## Data
 
-The data for the challenge has been sourced from different places. Most are also part of the [CTSpine1K](https://github.com/MIRACLE-Center/CTSpine1K) data set. It has been heavily pre-processed by Rasmus for the challenge. All samples are pre-aligned using a rigid-body transformations and so on.
+The data for the challenge has been sourced from different places. Most are also part of the [CTSpine1K](https://github.com/MIRACLE-Center/CTSpine1K) data set. It has been heavily pre-processed by Andreas Aspe and Rasmus R. Paulsen for the challenge. All samples are pre-aligned using a rigid-body transformations and so on.
 
 
 For all samples there are different *representations* of the data. It is important to choose the representation that is best suited for the task at hand.
@@ -67,9 +67,18 @@ A mesh representing the outer surface of the vertebra:
 |:----------------------------------------:|:---------------------------------------------:|:-------------------------------------------:|
 | <img src="figs/vertebra_mesh.jpg" width=200/> | <img src="figs/vertebra_mesh_2.jpg" width=200/> | <img src="figs/vertebra_mesh_3.jpg" width=200/> |
 
-The meshes are pre-registered and there is *point-correspondence* over the entire data set. That means that all meshes have the same number of vertices and that a vertex with a given id can be assumed to be place on approximately the same anatomical location on all vertebra.
+The meshes are pre-registered and there is *point-correspondence* over the entire data set. That means that all meshes have the same number of vertices and that a vertex with a given id can be assumed to be placed on approximately the same anatomical location on all vertebra.
 
-The coordinates of the vertices are in *physical coordinates* (mm) check below on coordinate systems if you need to know more. If you want to use mesh coordinates to do lookup in voxel arrays, you will need to transform from *physical* coordinates to *index* coordinates.
+The coordinates of the vertices are in *physical coordinates* (mm) check below on coordinate systems, if you need to know more. If you want to use mesh coordinates to do lookup in voxel arrays, you will need to transform from *physical* coordinates to *index* coordinates.
+
+### Artificial outliers
+
+The outliers are artificial outliers done by modifiying the original CT scan and the label map. Below, it can be seen how a sphere outlier looks like on the original scan and the labelmap. The original voxel values have been in-painted with voxel values that are sampled from a distribution resembling the original value distributions.
+
+|                 Sphere outlier                 |                 Label map of sphere outlier                 |
+|:----------------------------------------:|:---------------------------------------------:|
+| <img src="figs/MeanStdOutlier.jpg" width=300/> | <img src="figs/MeanStdOutlier_label.jpg" width=300/> |
+
 
 
 ## Data splits and naming conventions
@@ -168,6 +177,11 @@ There is also a field called `data_types` where you should specify what data you
 ## Submitting results
 
 The submission script `submit_results.py` takes as input your JSON configuration file. It will use that to locate your outlier detection result JSON file and couple that with the information provided in your config file (team name, method description and data types). Finally, it will send a merged JSON file to the challenge server.
+
+During the summer school, the challenge board will contain results from the **test_files_200.txt** set. 
+
+The **FINAL** result will be computed on the predictions you have submmited using the full test set in **test_files.txt**.
+
 
 ## Outlier detection evaluations
 
