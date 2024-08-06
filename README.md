@@ -13,9 +13,9 @@ When doing binary classification, we normally have two well described classes (c
 
 In outlier detection, it is assumed that there is one class that is relatively well clustered (many cats) and that there are *anomalies* that do not necesserealy form clusters (one boat, one plant, two scissors, a few humans, three helicopters). The goal of outlier detection is to detect when a sample does not belong to the *normal* class. 
 
-A vocabulary and some method can be found in [Scikit Learn on outlier and novelty detection](https://scikit-learn.org/stable/modules/outlier_detection.html).
+A vocabulary and some methods can be found in [Scikit Learn on outlier and novelty detection](https://scikit-learn.org/stable/modules/outlier_detection.html).
 
-According to their definiation this challenge is about **novelty detection**, since we have a well known training set with a known *normal* samples. The goal is to detect if *novel* samples belong to the normal class or not. We still call it an outlier detection challenge and thereby violates the definition slightly.
+According to their definition, our challenge is about **novelty detection**, since we have a well known training set with known *normal* samples. The goal is to detect if *novel* samples belong to the normal class or not. We still call it an outlier detection challenge and thereby violates the definition slightly.
 
 
 
