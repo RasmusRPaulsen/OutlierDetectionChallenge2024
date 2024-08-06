@@ -22,6 +22,9 @@ The [spine](https://visualsonline.cancer.gov/details.cfm?imageid=12201) consists
 
 ## Data
 
+The data for the challenge has been sourced from different places. Most are also part of the [CTSpine1K](https://github.com/MIRACLE-Center/CTSpine1K) data set. It has been heavily pre-processed by Rasmus for the challenge. All samples are pre-aligned using a rigid-body transformations and so on.
+
+
 For all samples there are different *representations* of the data. It is important to choose the representation that is best suited for the task at hand.
 
 ### Raw data and segmentation masks (label masks)
@@ -66,7 +69,8 @@ A mesh representing the outer surface of the vertebra:
 
 The meshes are pre-registered and there is *point-correspondence* over the entire data set. That means that all meshes have the same number of vertices and that a vertex with a given id can be assumed to be place on approximately the same anatomical location on all vertebra.
 
-The data has been sourced from different places. Most are also part of the [CTSpine1K](https://github.com/MIRACLE-Center/CTSpine1K) data set.
+The coordinates of the vertices are in *physical coordinates* (mm) check below on coordinate systems if you need to know more. If you want to use mesh coordinates to do lookup in voxel arrays, you will need to transform from *physical* coordinates to *index* coordinates.
+
 
 ## Data splits and naming conventions
 
@@ -214,8 +218,8 @@ There are also different conventions used in medical scanners (LPS, RAS etc)
 
 More details here:
 
-[SimpleITK coordinate systems](https://simpleitk.readthedocs.io/en/master/fundamentalConcepts.html)
-[3D slicer coordinate systems](https://slicer.readthedocs.io/en/latest/user_guide/coordinate_systems.html)
+- [SimpleITK coordinate systems](https://simpleitk.readthedocs.io/en/master/fundamentalConcepts.html)
+- [3D slicer coordinate systems](https://slicer.readthedocs.io/en/latest/user_guide/coordinate_systems.html)
 
 There are methods in SimpleITK to convert forth and back from *physical* coordinates and *index* coordinates.
 
