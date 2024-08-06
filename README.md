@@ -63,7 +63,7 @@ The data has been sourced from different places. Most are also part of the [CTSp
 
 ## Data splits and naming conventions
 
-The total set consists of 1000 samples. They are split into:
+The total set consists of 1000+ samples. They are split into:
 
 - **Training samples** : Samples that can be used for training and validation.  (`training_samples.txt`)
 - **Test samples** : Samples that are used to compute the running scores on the score board. (`test_samples.txt`)
@@ -82,34 +82,37 @@ For each sample, there is the **crop**, the **label crop**, the **distance field
 So for **sample_0017** the surface of the **sphere_outlier_water** is called **sample_0017_surface_sphere_outlier_water.vtk**.
 
 ### The test sets
-All the samples in the test sets are simply called `sample_XXXX` even if they are outliers. 
+
+All the samples in the test sets are simply called `sample_XXXX` even if they are outliers. A certain amount of samples in the test sets are normals and the rest are outliers.
 
 The **goal** is to assign a label to each sample in the test indicating if they are *normal (0)* or *outliers (1)*.
 
 ## Supplied Python scripts
 
-All the supplied scripts take two arguments, the config file and the dataset to use. For example:
+All the supplied scripts take two arguments (except the data split script), the config file and the dataset to use. For example:
 ```
-train_pdm_method.py -c rasmus_pc_config.json -d rasmus_training_split.txt
+train_pdm_outlier_detection.py -c rasmus_pc_config.json -d custom_train_list_100.txt
 ```
 
-Will use the configuration settings in `rasmus_pc_config.json` and train using a custom `rasmus_training_split.txt` set. The set is just a text file where every row is a sample name (`sample_0017` for example)
+Will use the configuration settings in `rasmus_pc_config.json` and train using a custom `custom_train_list_100.txt` set. The set is just a text file where every row is a sample name (`sample_0017` for example)
 
 The following scripts, should be seen as simple templates that you can use as a basis for your own inpainting framework:
 
-- `train_pdm_method.py`: Will compute a point distribution model (PDM)
-- `test_pdm_method.py`: Will classify samples using a pre-trained PDM
+- `create_custom_data_splits.py`: Will generate a custom training and validation list of samples based on the total set of training data.
+- `train_pdm_outlier_detection.py`: Will compute a point distribution model (PDM) based on a training set
+- `validate_pdm_outlier_detection.py`: Will predict samples using a pre-trained PDM and show scores based on the supplied ground truth.
+- `test_pdm_outlier_detection.py`: Will predict samples from a pre-defined test set with unknown ground truth
+- `submit_outlier_detections.py`: Combine the information in your configuration file with your detection results and submit them to the challenge server.
+
 - `train_segmentation_method.py`: Will train a very simple detection model based on segmentation volumes.
 - `test_segmentation_method.py`: Will classify samples using a pre-trained segmentation based model.
-- `evaluate_outlier_detection.py`: Will compute metrics (TBD)
-- `submit_results.py`: Combine the information in your configuration file with your detection results and submit them to the Challenge server.
 
 
 ## Dependencies
 
-- VTK 9.3.0 
+- VTK 9.3.0   (very important that the version number is larger than 9.3 - something to do with direction cosines in medical scans)
 - SimpleITK
-
+- requests
 
 ## Tools
 
@@ -118,32 +121,34 @@ We highly recommend to use 3D slicer to visualize the data:
 
 It can be used for both the NIFTI files (.nii.gz) and the mesh/surface files (.vtk).
 
-[Sumatra (TBD)](people.compute.dtu.dk/rapa) is a surface viewer that can load several surfaces fast.
+[Sumatra](http://fungi.compute.dtu.dk:8080/software) is a surface viewer that can load several surfaces fast. Only windows and you might get a lot of anti-virus warning when try to download it. It is safe though.
 
 ## Getting started
 
 There are several example scripts that can get you started. Here is an example, where you build a [point distribution model (PDM)](https://en.wikipedia.org/wiki/Point_distribution_model) based on the surface meshes. The distribution of PCA components is then used to decide the outliers.
 
-- Download the data [TBD](https://people.compute.dtu.dk/rapa/) and unpack it a suitable place.
+- Download the data [TBD](https://people.compute.dtu.dk/rapa/) (130 GB) and unpack it a suitable place.
 - Clone this repository or download it as a zip and unpack.
 - Create a copy of `outlier-challenge-config.json` or edit it directly.
 - Find a fantastic team name (only using letters and numbers) and put it into the config file.
 - Change the data folders in the config file to match your local setup.
-- Try to run `train_pdm_method.py` with the **training** set.
-- Try to run `test_pdm_method.py` with the **test** set.
-- Try to run `submit_results.py` with the **test** set.
+- Run `create_custom_data_splits -c outlier-challenge-config.json` : this will generate custom lists of samples (names in text file) in the data directory. Check them.
+- Run `train_pdm_outlier_detection.py -c outlier-challenge-config.json -d custom_train_list_100.txt` . This will train a PDM model using your custom set of training samples. It will also synthesize shapes showing a mean shape and major modes of variations. Use 3D Slicer or Sumatra to visualize them.
+- Run `validate_pdm_outlier_detection.py -c outlier-challenge-config.json -d custom_validation_list_100.txt` . This will evaluate the PDM model using your custom validation set.
+- Run `test_pdm_outlier_detection.py -c outlier-challenge-config.json -d test_files_200.txt` . This will predict outliers on a test set.
+- Run `submit_outlier_detections.py -c outlier-challenge-config.json -d test_files_200.txt`. This will submit your test predictions to the test server.
 
-We encourage you to split the **training** set into smaller sets for your own purpose (training, validation etc).
+**DO NOT** change the sample ids in the provided `test_files_200.txt` and `test_files.txt`. They should be fixed by all teams.
 
-**DO NOT** change the sample ids in the provided test and final_test sets. They should be fixed by all teams.
-
-## Describing your method in the config file
+## Describing your method and data in the config file
 
 The JSON config file has a field called `method`. Here you should supply a simple description of your method with no special letters. For example `PDM with distance threshold`, `Segmentation volume with flexible threshold`, `Distance field shape analysis with Mahalanobis distance`. This is used on the scoreboard.
 
+There is also a field called `data_types` where you should specify what data your data is using: **mesh**, **segmentation**, **image**, **mesh+segmenation** etc.
+
 ## Submitting results
 
-The submission script `submit_results.py` takes as input your JSON configuration file. It will use that to locate your outlier detection result JSON file and couple that with the information provided in your config file (team name and method description). Finally, it will send a merged JSON file to the challenge server.
+The submission script `submit_results.py` takes as input your JSON configuration file. It will use that to locate your outlier detection result JSON file and couple that with the information provided in your config file (team name, method description and data types). Finally, it will send a merged JSON file to the challenge server.
 
 ## Outlier detection evaluations
 
