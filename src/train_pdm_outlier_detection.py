@@ -93,7 +93,7 @@ def compute_pca_analysis(settings):
     for idx in all_scan_ids:
         print(f"Reading {i + 1} / {n_samples}")
         scan_id = idx.strip()
-        surf_name = os.path.join(surface_dir, f"{idx}_surface.vtk")
+        surf_name = os.path.join(surface_dir, f"{scan_id}_surface.vtk")
         reader = vtk.vtkPolyDataReader()
         reader.SetFileName(surf_name)
         reader.Update()

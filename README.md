@@ -7,6 +7,9 @@ The goal of this challenge is to develop and evaluate algorithms for outlier det
 
 Specifically, the challenge is focused on the human spine where we will look at the L1 vertebra as seen on a 3D computed tomography (CT) scan. A set of normal vertebra are given and a set with artificial artefacts (outliers) is also given. Finally, a test set with both normals and outliers are provided and the goal is to determine which samples in the test set that are outliers.
 
+## What is outlier detection?
+
+
 ## Clinical background
 
 The [spine](https://visualsonline.cancer.gov/details.cfm?imageid=12201) consists of a set of individual vertebra. Since the vertebra consist of bony material they are clearly visible on CT scans due to their high x-ray attenuation. With age, vertebra become frail and can fracture and compress. This can be seen on x-rays or CT but the diagnosis is not trivial. This challenge aims at exploring methods to detect potential fractured or compressed vertebra by considering them outliers when comparing to a normal population. We are focusing on a single vertebra and not a full spine analysis.
@@ -107,13 +110,13 @@ The following scripts, should be seen as simple templates that you can use as a 
 - `validate_pdm_outlier_detection.py`: Will predict samples using a pre-trained PDM and show scores based on the supplied ground truth.
 - `test_pdm_outlier_detection.py`: Will predict samples from a pre-defined test set with unknown ground truth
 - `submit_outlier_detections.py`: Combine the information in your configuration file with your detection results and submit them to the challenge server.
-
 - `train_segmentation_outlier_detection.py`: Will train a very simple detection model based on segmentation volumes.
-- `validate_segmentation_outlier_detection.py`: Will predict samples and show scores based on the supplied ground truth.
 - `test_segmentation_outlier_detection.py`: Will classify samples using a pre-trained segmentation based model.
 
 
 ## Dependencies
+
+The scripts have several dependencies. Among others:
 
 - VTK 9.3.0   (very important that the version number is larger than 9.3 - something to do with direction cosines in medical scans)
 - SimpleITK
@@ -121,9 +124,11 @@ The following scripts, should be seen as simple templates that you can use as a 
 
 ## Tools
 
-We use [VTK](https://vtk.org/) as a software API to read and manipulate 3D meshes (see the PDM based example scripts for usage).
+We mostly use [SimpleITK](https://simpleitk.readthedocs.io/en/master/index.html#) for image reading/writing and for 3D image manipulations. (see the segmentation example scripts for usage).
 
-We use [SimpleITK](https://simpleitk.org/) as a software API to read and manipulate 3D volumes (see the segmentation example scripts for usage).
+For 3D surface processing, we use [The Visualization Toolkit (VTK)](https://vtk.org/). VTK also has very powerfull 3D visualization tools. (see the PDM based example scripts for usage).
+
+Sometimes it is necessary to convert from SimpleITK to VTK and the other way around. SimpleITK has some very good image readers and writers while VTK for example can extract iso-surfaces from scans and label maps.
 
 We highly recommend to use 3D slicer to visualize the data:
 [3D Slicer](https://www.slicer.org/)
@@ -137,7 +142,7 @@ It can be used for both the NIFTI files (.nii.gz) and the mesh/surface files (.v
 
 There are several example scripts that can get you started. Here is an example, where you build a [point distribution model (PDM)](https://en.wikipedia.org/wiki/Point_distribution_model) based on the surface meshes. The distribution of PCA components is then used to decide the outliers.
 
-- Download the data from [FileSender](https://filesender.deic.dk/?s=download&token=6a909b11-065b-4a0f-adc0-3f4f869f0188) (130 GB) and unpack it a suitable place.
+- Download the data from [FileSender](https://filesender.deic.dk/?s=download&token=b7b99cb3-825b-4d91-a5d6-0f526fd77e55) (130 GB) and unpack it a suitable place.
 - Clone this repository or download it as a zip and unpack.
 - Create a copy of `outlier-challenge-config.json` or edit it directly.
 - Find a fantastic team name (only using letters and numbers) and put it into the config file.
@@ -162,6 +167,22 @@ The submission script `submit_results.py` takes as input your JSON configuration
 
 ## Outlier detection evaluations
 
+The detections are evaluated using metrics similar to the metrics used in binary classication tasks. They are defined using the:
+
+- The number of true positives (TP)
+- The number of false positives (FP)
+- The number of true negatives (TN)
+- The number of false negatives (FN)
+
+The metrics we compute are: 
+
+- Accuracy
+- Precision
+- Recall
+- F1
+- Cohens Kappa
+
+
 ## The challenge score board
 
 You can see how your amazing methods is performing on the [challenge score board](http://fungi.compute.dtu.dk:8080/).
@@ -173,7 +194,42 @@ You can see how your amazing methods is performing on the [challenge score board
 ### Segmentation based outlier detection
 
 ### VAE based outlier detection
-Single slice vs full volume
+
+
+## Something about painfull 3D volume coordinate systems
+
+One major head ache when dealing with 3D images is the choice of coordinate systems. We are, at least, using these systems:
+
+- The CT scans *physical* coordinate system that is typically measured in mm and describes the coordinates inside the patient/scanner.
+- The index based coordinate system of the CT scan (indeces are integers)
+- The index based coordinate system as a Numpy 3D array. A transpose operation is needed to convert between SimpleITK and Numpy indices. (Unless you have already transposed the entire Numpy array after getting it from SimpleITK)
+
+For example:
+```python
+# Do the transpose of the coordinates (SimpleITK vs. numpy)
+p_itk = [p_np[2], p_np[1], p_np[0]]
+```
+
+There are also different conventions used in medical scanners (LPS, RAS etc)
+
+More details here:
+
+[SimpleITK coordinate systems](https://simpleitk.readthedocs.io/en/master/fundamentalConcepts.html)
+[3D slicer coordinate systems](https://slicer.readthedocs.io/en/latest/user_guide/coordinate_systems.html)
+
+There are methods in SimpleITK to convert forth and back from *physical* coordinates and *index* coordinates.
+
+This code will get the *physical* coordinates of a voxel where you supply the index values:
+```python
+p_phys = img.TransformIndexToPhysicalPoint([int(p_index[0]), int(p_index[1]), int(p_index[2])])
+```
+
+and with this: 
+```python
+p_index = img_label.TransformPhysicalPointToIndex(p_phys)
+```
+you will get index coordinates by given physical coordinates (floating point in millimeters).
+
 
 
 ## Links and material
