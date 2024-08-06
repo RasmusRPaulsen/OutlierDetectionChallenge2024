@@ -9,6 +9,16 @@ Specifically, the challenge is focused on the human spine where we will look at 
 
 ## What is outlier detection?
 
+When doing binary classification, we normally have two well described classes (cats/dogs) where it assumed that the distribution of the *features* of the samples of the classes can be described in somewhat seperated clusters.
+
+In outlier detection, it is assumed that there is one class that is relatively well clustered (many cats) and that there are *anomalies* that do not necesserealy form clusters (one boat, one plant, two scissors, a few humans, three helicopters). The goal of outlier detection is to detect when a sample does not belong to the *normal* class. 
+
+A vocabulary and some method can be found in [Scikit Learn on outlier and novelty detection](https://scikit-learn.org/stable/modules/outlier_detection.html).
+
+According to their definiation this challenge is about **novelty detection**, since we have a well known training set with a known *normal* samples. The goal is to detect if *novel* samples belong to the normal class or not. We still call it an outlier detection challenge and thereby violates the definition slightly.
+
+
+
 
 ## Clinical background
 
@@ -207,11 +217,17 @@ You can see how your amazing methods is performing on the [challenge score board
 
 ## Inspirations
 
-### PCA based outlier detection
+There are many ways of detecting outliers/anomalies. Here are a few pointers:
 
-### Segmentation based outlier detection
+### Feature based outlier detection
+
+Feature based detection is a classical machine learning approach. You can for example use the point cloud or the segmentation to extract high-level features as volumes, spheriocity and so on. Alternatively, you can use principal component analysis on the samples (as demonstrated in the PDM scripts). You can then use classical methods from multivariate-statitics like Mahalanobis distances on PCA loadings or features. You can also experiment with the methods [here](https://scikit-learn.org/stable/modules/outlier_detection.html). 
 
 ### VAE based outlier detection
+
+An auto-encoder or a variational autoencoder can be trained on normal samples. For example single slices or full volumes of the image or the distance fields. The hypothesis is that when it is presented for an outlier it will try to synthesize a *normal* version of the sample. The difference between the input and the reconstruction can be considered a measure for the degree of outlier.
+
+[VAE based anomaly detection](https://towardsdatascience.com/hands-on-anomaly-detection-with-variational-autoencoders-d4044672acd5)
 
 
 ## Something about painfull 3D volume coordinate systems
@@ -249,8 +265,4 @@ p_index = img_label.TransformPhysicalPointToIndex(p_phys)
 you will get index coordinates by given physical coordinates (floating point in millimeters).
 
 
-
-## Links and material
-
-- [Scikit Learn on outlier and novelty detection](https://scikit-learn.org/stable/modules/outlier_detection.html)
 
