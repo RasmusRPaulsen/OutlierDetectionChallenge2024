@@ -154,6 +154,8 @@ The submission script `submit_results.py` takes as input your JSON configuration
 
 ## The challenge score board
 
+You can see how your amazing methods is performing on the [challenge score board](http://fungi.compute.dtu.dk:8080/).
+
 ## Inspirations
 
 ### PCA based outlier detection
