@@ -21,9 +21,9 @@ The [spine](https://visualsonline.cancer.gov/details.cfm?imageid=12201) consists
 
 For all samples there are different *representations* of the data. It is important to choose the representation that is best suited for the task at hand.
 
-### Raw data and segmentation masks
+### Raw data and segmentation masks (label masks)
 
-A cropped CT scan with the original Hounsfield units and a segmentation mask, where the value of each voxel indicate if it is part of the vertebra or background (=0).
+A cropped CT scan with the original Hounsfield units and a segmentation (label) mask, where the value of each voxel indicate if it is part of the vertebra or background (=0).
 
 |        Raw data     |
 |:----------------------------------------:|
@@ -39,6 +39,8 @@ A cropped CT scan with the original Hounsfield units and a segmentation mask, wh
 |:----------------------------------------:|
 |<img src="figs/3Dslicer_dist_segm.jpg" width=600/>|
 
+**Important: The label ID of the L1 vertebra is 20. This and the background (=0) are the only values from the segmenation masks that we use in this challenge.**
+
 ### Distance fields
 
 A distance field that is a 3D voxel volume, where the value in each voxel is the signed distance to the surface of the vertebra:
@@ -46,6 +48,8 @@ A distance field that is a 3D voxel volume, where the value in each voxel is the
 |                 Distance field                 |
 |:----------------------------------------:|
 |<img src="figs/3Dslicer_dist_field.jpg" width=600/>|
+
+**Important: The distance field values are truncated to [-50, 50]**
 
 
 ### Meshes
@@ -104,8 +108,9 @@ The following scripts, should be seen as simple templates that you can use as a 
 - `test_pdm_outlier_detection.py`: Will predict samples from a pre-defined test set with unknown ground truth
 - `submit_outlier_detections.py`: Combine the information in your configuration file with your detection results and submit them to the challenge server.
 
-- `train_segmentation_method.py`: Will train a very simple detection model based on segmentation volumes.
-- `test_segmentation_method.py`: Will classify samples using a pre-trained segmentation based model.
+- `train_segmentation_outlier_detection.py`: Will train a very simple detection model based on segmentation volumes.
+- `validate_segmentation_outlier_detection.py`: Will predict samples and show scores based on the supplied ground truth.
+- `test_segmentation_outlier_detection.py`: Will classify samples using a pre-trained segmentation based model.
 
 
 ## Dependencies
@@ -116,6 +121,10 @@ The following scripts, should be seen as simple templates that you can use as a 
 
 ## Tools
 
+We use [VTK](https://vtk.org/) as a software API to read and manipulate 3D meshes (see the PDM based example scripts for usage).
+
+We use [SimpleITK](https://simpleitk.org/) as a software API to read and manipulate 3D volumes (see the segmentation example scripts for usage).
+
 We highly recommend to use 3D slicer to visualize the data:
 [3D Slicer](https://www.slicer.org/)
 
@@ -123,11 +132,12 @@ It can be used for both the NIFTI files (.nii.gz) and the mesh/surface files (.v
 
 [Sumatra](http://fungi.compute.dtu.dk:8080/software) is a surface viewer that can load several surfaces fast. Only windows and you might get a lot of anti-virus warning when try to download it. It is safe though.
 
+
 ## Getting started
 
 There are several example scripts that can get you started. Here is an example, where you build a [point distribution model (PDM)](https://en.wikipedia.org/wiki/Point_distribution_model) based on the surface meshes. The distribution of PCA components is then used to decide the outliers.
 
-- Download the data [TBD](https://people.compute.dtu.dk/rapa/) (130 GB) and unpack it a suitable place.
+- Download the data from [FileSender](https://filesender.deic.dk/?s=download&token=6a909b11-065b-4a0f-adc0-3f4f869f0188) (130 GB) and unpack it a suitable place.
 - Clone this repository or download it as a zip and unpack.
 - Create a copy of `outlier-challenge-config.json` or edit it directly.
 - Find a fantastic team name (only using letters and numbers) and put it into the config file.
