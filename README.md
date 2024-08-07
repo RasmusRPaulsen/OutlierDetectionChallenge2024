@@ -224,7 +224,7 @@ There are many ways of detecting outliers/anomalies. Here are a few pointers:
 
 ### Feature based outlier detection
 
-Feature based detection is a classical machine learning approach. You can for example use the point cloud or the segmentation to extract high-level features as volumes, spheriocity and so on. Alternatively, you can use principal component analysis on the samples (as demonstrated in the PDM scripts). You can then use classical methods from multivariate-statitics like Mahalanobis distances on PCA loadings or features. You can also experiment with the methods [here](https://scikit-learn.org/stable/modules/outlier_detection.html). 
+Feature based detection is a classical machine learning approach. You can for example use the point cloud or the segmentation to extract high-level features as volumes, spheriocity and so on. Alternatively, you can use principal component analysis on the samples (as demonstrated in the PDM scripts). You can then use classical methods from multivariate-statistics like Mahalanobis distances on PCA loadings or features. You can also experiment with the methods [here](https://scikit-learn.org/stable/modules/outlier_detection.html). 
 
 ### VAE based outlier detection
 
