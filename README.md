@@ -5,13 +5,13 @@ This challenge is made in conjunction with the [Ph. D. Summer school on biomedic
 
 The goal of this challenge is to develop and evaluate algorithms for outlier detection. In this challenge, outlier detection (sometimes called novelty detection) is to detect samples that are not considered *normal*.
 
-Specifically, the challenge is focused on the human spine where we will look at the L1 vertebra as seen on a 3D computed tomography (CT) scan. A set of normal vertebra are given and a set with artificial artefacts (outliers) is also given. Finally, a test set with both normals and outliers are provided and the goal is to determine which samples in the test set that are outliers.
+Specifically, the challenge is focused on the human spine where we will look at the L1 vertebra as seen on a 3D computed tomography (CT) scan. A set of normal vertebra are given and a set with artificial artefacts (outliers) is also given. Finally, a test set with both normal samples and samples with artificially outliers are provided and the goal is to determine which samples in the test set that are outliers.
 
 ## What is outlier detection?
 
 When doing binary classification, we normally have two well described classes (cats/dogs) where it assumed that the distribution of the *features* of the samples of the classes can be described in somewhat seperated clusters.
 
-In outlier detection, it is assumed that there is one class that is relatively well clustered (many cats) and that there are *anomalies* that do not necesserealy form clusters (one boat, one plant, two scissors, a few humans, three helicopters). The goal of outlier detection is to detect when a sample does not belong to the *normal* class. 
+In outlier detection, it is assumed that there is one class that is relatively well clustered (many cats) and that there are *anomalies* that do not necessarily form clusters (one tiger, one lion, two lynx, three hello kitty). The goal of outlier detection is to detect when a sample does not belong to the *normal* class. 
 
 A vocabulary and some methods can be found in [Scikit Learn on outlier and novelty detection](https://scikit-learn.org/stable/modules/outlier_detection.html).
 
@@ -95,9 +95,9 @@ The outliers are artificial outliers done by modifiying the original CT scan and
 
 The total set consists of 1000+ samples. They are split into:
 
-- **Training samples** : Samples that can be used for training and validation.  (`training_samples.txt`)
-- **Test samples** : Samples that are used to compute the running scores on the score board. (`test_samples.txt`)
-- **Final test samples** : Samples that will be used to compute the final score at the end of the challenge. (`final_test_samples.txt`)
+- **train_files** : Samples that can be used for training and validation.  
+- **test_files_200** : Samples that are used to compute the running scores on the score board. 
+- **test_files** : Samples that will be used to compute the final score at the end of the challenge. 
 
 All samples are named `sample_XXXX` where XXXX is a decimal number.
 
@@ -113,7 +113,7 @@ So for **sample_0017** the surface of the **sphere_outlier_water** is called **s
 
 ### The test sets
 
-All the samples in the test sets are simply called `sample_XXXX` even if they are outliers. A certain amount of samples in the test sets are normals and the rest are outliers.
+All the samples in the test sets are simply called `sample_XXXX` even if they are outliers. A certain amount of samples in the test sets are normals and the rest are outliers (also artificially generated).
 
 The **goal** is to assign a label to each sample in the test indicating if they are *normal (0)* or *outliers (1)*.
 
@@ -233,7 +233,7 @@ An auto-encoder or a variational autoencoder can be trained on normal samples. F
 [VAE based anomaly detection](https://towardsdatascience.com/hands-on-anomaly-detection-with-variational-autoencoders-d4044672acd5)
 
 
-## Something about painfull 3D volume coordinate systems
+## Something about painful 3D volume coordinate systems
 
 One major head ache when dealing with 3D images is the choice of coordinate systems. We are, at least, using these systems:
 
