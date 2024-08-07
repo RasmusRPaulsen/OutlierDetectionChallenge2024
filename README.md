@@ -233,6 +233,12 @@ An auto-encoder or a variational autoencoder can be trained on normal samples. F
 [VAE based anomaly detection](https://towardsdatascience.com/hands-on-anomaly-detection-with-variational-autoencoders-d4044672acd5)
 
 
+### Other approaches
+
+- [Towards Total Recall in Industrial Anomaly Detection](https://github.com/amazon-science/patchcore-inspection)
+- [Generalizing Unsupervised Anomaly Detection: Towards Unbiased Pathology Screening](https://github.com/ci-ber/RA)
+- [Anomaly Detection in Medical Imaging With Deep Perceptual Autoencoders](https://github.com/ninatu/anomaly_detection)
+
 ## Something about painful 3D volume coordinate systems
 
 One major head ache when dealing with 3D images is the choice of coordinate systems. We are, at least, using these systems:
