@@ -30,7 +30,7 @@ def save_synthesized_shape(input_shape, point_values, out_name):
 
 def vtk_to_vector(pd):
     """
-    Takes as input a VTK polydata object and returns a numpy array of shape (n_points, 3)
+    Takes as input a VTK polydata object and returns a numpy array of shape (n_points * 3, 1)
     with elements (x_0, y_0, z_0,..., x_(n-1), y_(n-1), z_(n-1))
     """
     n_points = pd.GetNumberOfPoints()

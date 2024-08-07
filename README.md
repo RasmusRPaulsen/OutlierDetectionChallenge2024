@@ -143,7 +143,10 @@ The scripts have several dependencies. Among others:
 
 - VTK 9.3.0   (very important that the version number is larger than 9.3 - something to do with direction cosines in medical scans)
 - SimpleITK
+- sci-kit learn
 - requests
+
+You might be better of installing with PIP than Conda (our experience with VTK).
 
 ## Tools
 
@@ -170,7 +173,7 @@ There are several example scripts that can get you started. Here is an example, 
 - Create a copy of `outlier-challenge-config.json` or edit it directly.
 - Find a fantastic team name (only using letters and numbers) and put it into the config file.
 - Change the data folders in the config file to match your local setup.
-- Run `create_custom_data_splits -c outlier-challenge-config.json` : this will generate custom lists of samples (names in text file) in the data directory. Check them.
+- Run `create_custom_data_splits.py -c outlier-challenge-config.json` : this will generate custom lists of samples (names in text file) in the data directory. Check them.
 - Run `train_pdm_outlier_detection.py -c outlier-challenge-config.json -d custom_train_list_100.txt` . This will train a PDM model using your custom set of training samples. It will also synthesize shapes showing a mean shape and major modes of variations. Use 3D Slicer or Sumatra to visualize them.
 - Run `validate_pdm_outlier_detection.py -c outlier-challenge-config.json -d custom_validation_list_100.txt` . This will evaluate the PDM model using your custom validation set.
 - Run `test_pdm_outlier_detection.py -c outlier-challenge-config.json -d test_files_200.txt` . This will predict outliers on a test set.
