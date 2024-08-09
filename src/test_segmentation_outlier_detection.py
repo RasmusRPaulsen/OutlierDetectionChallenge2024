@@ -44,7 +44,7 @@ def test_segmentation_outlier_detection(settings):
     """
     print("Running segmentation analysis on test set")
     data_dir = settings["data_dir"]
-    crop_dir = os.path.join(data_dir, "test\\crops")
+    crop_dir = os.path.join(data_dir, "test/crops")
     test_list = settings["data_set"]
 
     result_dir = settings["result_dir"]
@@ -57,8 +57,7 @@ def test_segmentation_outlier_detection(settings):
     with open(segmentation_analysis_in, 'r') as json_file:
         segmentation_analysis = json.load(json_file)
 
-
-    test_id_list_file = os.path.join(data_dir, test_list)
+    test_id_list_file = os.path.join(result_dir, test_list)
     all_scan_ids = np.loadtxt(str(test_id_list_file), delimiter=",", dtype=str)
     print(f"Found {len(all_scan_ids)} test samples in {test_id_list_file}")
     if len(all_scan_ids) == 0:
@@ -111,7 +110,6 @@ def test_segmentation_outlier_detection(settings):
     plt.title("Segmentation volumes")
     plt.legend()
     plt.show()
-
 
 
 if __name__ == '__main__':

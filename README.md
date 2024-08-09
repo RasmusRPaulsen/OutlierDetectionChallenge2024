@@ -7,6 +7,8 @@ The goal of this challenge is to develop and evaluate algorithms for outlier det
 
 Specifically, the challenge is focused on the human spine where we will look at the L1 vertebra as seen on a 3D computed tomography (CT) scan. A set of normal vertebra are given and a set with artificial artefacts (outliers) is also given. Finally, a test set with both normal samples and samples with artificially outliers are provided and the goal is to determine which samples in the test set that are outliers.
 
+**Note:** There might be *natural outliers* like fractured vertebra in the dataset. The goal of this challenge is not to predict them. It is a hard problem. Even getting ground truth fracture grading is hard. We assume that the *artificial* outliers that we have made are more severe than natural outliers. So we (hope) to have reduced the complexity of the challenge that way. 
+
 ## What is outlier detection?
 
 When doing binary classification, we normally have two well described classes (cats/dogs) where it assumed that the distribution of the *features* of the samples of the classes can be described in somewhat seperated clusters.
@@ -16,8 +18,6 @@ In outlier detection, it is assumed that there is one class that is relatively w
 A vocabulary and some methods can be found in [Scikit Learn on outlier and novelty detection](https://scikit-learn.org/stable/modules/outlier_detection.html).
 
 According to their definition, our challenge is about **novelty detection**, since we have a well known training set with known *normal* samples. The goal is to detect if *novel* samples belong to the normal class or not. We still call it an outlier detection challenge and thereby violates the definition slightly.
-
-
 
 
 ## Clinical background
@@ -128,7 +128,7 @@ Will use the configuration settings in `rasmus_pc_config.json` and train using a
 
 The following scripts, should be seen as simple templates that you can use as a basis for your own inpainting framework:
 
-- `create_custom_data_splits.py`: Will generate a custom training and validation list of samples based on the total set of training data.
+- `create_custom_data_splits.py`: Will generate a custom training and validation list of samples based on the total set of training data. Will also create the result directory and place the file lists in that directory.
 - `train_pdm_outlier_detection.py`: Will compute a point distribution model (PDM) based on a training set
 - `validate_pdm_outlier_detection.py`: Will predict samples using a pre-trained PDM and show scores based on the supplied ground truth.
 - `test_pdm_outlier_detection.py`: Will predict samples from a pre-defined test set with unknown ground truth
@@ -163,6 +163,16 @@ It can be used for both the NIFTI files (.nii.gz) and the mesh/surface files (.v
 
 [Sumatra](http://fungi.compute.dtu.dk:8080/software) is a surface viewer that can load several surfaces fast. Only windows and you might get a lot of anti-virus warning when try to download it. It is safe though.
 
+## Data on the DTU HPC cluster
+
+For participants that are already users of the [DTU HPC cluster](https://www.hpc.dtu.dk/?page_id=2501), we have placed the data here:
+
+```
+/work3/rapa/challenge_data/
+```
+
+It is **read-only** so you can process it from there but need to place output in your own space.
+
 
 ## Getting started
 
@@ -173,7 +183,7 @@ There are several example scripts that can get you started. Here is an example, 
 - Create a copy of `outlier-challenge-config.json` or edit it directly.
 - Find a fantastic team name (only using letters and numbers) and put it into the config file.
 - Change the data folders in the config file to match your local setup.
-- Run `create_custom_data_splits.py -c outlier-challenge-config.json` : this will generate custom lists of samples (names in text file) in the data directory. Check them.
+- Run `create_custom_data_splits.py -c outlier-challenge-config.json` : This will create the result directory, copy the provided file lists there and generate custom lists of samples (names in text file) in the result directory. Check them.
 - Run `train_pdm_outlier_detection.py -c outlier-challenge-config.json -d custom_train_list_100.txt` . This will train a PDM model using your custom set of training samples. It will also synthesize shapes showing a mean shape and major modes of variations. Use 3D Slicer or Sumatra to visualize them.
 - Run `validate_pdm_outlier_detection.py -c outlier-challenge-config.json -d custom_validation_list_100.txt` . This will evaluate the PDM model using your custom validation set.
 - Run `test_pdm_outlier_detection.py -c outlier-challenge-config.json -d test_files_200.txt` . This will predict outliers on a test set.

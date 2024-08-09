@@ -54,7 +54,7 @@ def compute_pca_analysis(settings):
     """
     print("Running PCA analysis")
     data_dir = settings["data_dir"]
-    surface_dir = os.path.join(data_dir, "train\\surfaces")
+    surface_dir = os.path.join(data_dir, "train/surfaces")
     training_list = settings["data_set"]
     result_dir = settings["result_dir"]
 
@@ -65,7 +65,7 @@ def compute_pca_analysis(settings):
     pca_analysis_out = os.path.join(pca_dir, f"pca_analysis.pkl")
     mean_shape_name = os.path.join(pca_dir, f"mean_shape.vtk")
 
-    training_id_list_file = os.path.join(data_dir, training_list)
+    training_id_list_file = os.path.join(result_dir, training_list)
     all_scan_ids = np.loadtxt(str(training_id_list_file), delimiter=",", dtype=str)
     print(f"Found {len(all_scan_ids)} samples in {training_id_list_file}")
     if len(all_scan_ids) == 0:

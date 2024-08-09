@@ -44,7 +44,7 @@ def compute_segmentation_statistics(settings):
     """
     print("Running segmentations analysis")
     data_dir = settings["data_dir"]
-    crop_dir = os.path.join(data_dir, "train\\crops")
+    crop_dir = os.path.join(data_dir, "train/crops")
     training_list = settings["data_set"]
     result_dir = settings["result_dir"]
 
@@ -53,7 +53,7 @@ def compute_segmentation_statistics(settings):
     Path(segmentation_out_dir).mkdir(parents=True, exist_ok=True)
     segmentation_analysis_out = os.path.join(segmentation_out_dir, f"segmentation_analysis.json")
 
-    training_id_list_file = os.path.join(data_dir, training_list)
+    training_id_list_file = os.path.join(result_dir, training_list)
     all_scan_ids = np.loadtxt(str(training_id_list_file), delimiter=",", dtype=str)
     print(f"Found {len(all_scan_ids)} samples in {training_id_list_file}")
     if len(all_scan_ids) == 0:

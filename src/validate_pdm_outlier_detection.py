@@ -13,7 +13,7 @@ def validate_pdm_outlier_detection(settings):
     """
     print("Running PCA analysis on validation set")
     data_dir = settings["data_dir"]
-    surface_dir = os.path.join(data_dir, "train\\surfaces")
+    surface_dir = os.path.join(data_dir, "train/surfaces")
     test_list = settings["data_set"]
 
     result_dir = settings["result_dir"]
@@ -24,7 +24,7 @@ def validate_pdm_outlier_detection(settings):
     pca_analysis_in = os.path.join(pca_dir, f"pca_analysis.pkl")
     mean_shape_name = os.path.join(pca_dir, f"mean_shape.vtk")
 
-    test_id_list_file = os.path.join(data_dir, test_list)
+    test_id_list_file = os.path.join(result_dir, test_list)
     all_scan_ids = np.loadtxt(str(test_id_list_file), delimiter=",", dtype=str)
     print(f"Found {len(all_scan_ids)} test samples in {test_id_list_file}")
     if len(all_scan_ids) == 0:
@@ -187,7 +187,7 @@ def compute_outlier_detection_metrics(settings):
     result_dir = settings["result_dir"]
     validation_results_json = os.path.join(result_dir, "validation_results.json")
 
-    test_id_list_file = os.path.join(data_dir, test_list)
+    test_id_list_file = os.path.join(result_dir, test_list)
     all_scan_ids = np.loadtxt(str(test_id_list_file), delimiter=",", dtype=str)
     print(f"Found {len(all_scan_ids)} test samples in {test_id_list_file}")
     if len(all_scan_ids) == 0:
