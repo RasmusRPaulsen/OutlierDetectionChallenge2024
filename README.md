@@ -9,6 +9,8 @@ Specifically, the challenge is focused on the human spine where we will look at 
 
 **Note:** There might be *natural outliers* like fractured vertebra in the dataset. The goal of this challenge is not to predict them. It is a hard problem. Even getting ground truth fracture grading is hard. We assume that the *artificial* outliers that we have made are more severe than natural outliers. So we (hope) to have reduced the complexity of the challenge that way. 
 
+[Summer school presentation is here.](docs/outlier-detection-challenge-2024.pdf)
+
 ## What is outlier detection?
 
 When doing binary classification, we normally have two well described classes (cats/dogs) where it assumed that the distribution of the *features* of the samples of the classes can be described in somewhat seperated clusters.
